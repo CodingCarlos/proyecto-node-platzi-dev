@@ -19,12 +19,15 @@ function createRemoteDb(host, port) {
 		return req('PUT', table, data);
 	}
 
-	// function upsert(table, id) {
-	// 	// ToDo
-	// 	return req('POST', table, data);
-	// }
+	function upsert(table, data) {
+		if (data.id) {
+			return update(table, data);
+		}
+
+		return insert(table, data);
+	}
+
 	function query(table, query, join) {
-		// ToDo
 		return req('POST', table + '/query', { query, join });
 	}
 
@@ -67,7 +70,7 @@ function createRemoteDb(host, port) {
 		get,
 		insert,
 		update,
-		// upsert,
+		upsert,
 		query,
 		// remove,
 	};
